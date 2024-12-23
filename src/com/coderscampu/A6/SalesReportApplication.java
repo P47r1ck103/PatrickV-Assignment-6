@@ -11,12 +11,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SalesReportApplication {
-
+	
 	
 	private static String worstMonth;
 
 	public static void main(String[] args) throws IOException {
-		String[] filePaths = { "models3.csv", "modelS.csv", "modelX.csv" };
+		String[] filePaths = { "model3.csv", "modelS.csv", "modelX.csv" };
 
 		List<SalesData> allSalesData = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class SalesReportApplication {
 				if (parts.length == 3) {
 					String model = parts[0];
 					int sales = Integer.parseInt(parts[1]);
-					LocalDate date = LocalDate.parse(parts[2], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+					LocalDate date = LocalDate.parse(parts[2], DateTimeFormatter.ofPattern("YearMonth"));
 					allSalesData.add(new SalesData(model, sales, date));
 				}
 			}
