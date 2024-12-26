@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class SalesReportApplication {
 	
 	
 	private static String worstMonth;
+	private static LocalDate date;
 
 	public static void main(String[] args) throws IOException {
 		String[] filePaths = { "model3.csv", "modelS.csv", "modelX.csv" };
@@ -29,8 +31,8 @@ public class SalesReportApplication {
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
 				if (parts.length == 2) {
-					int sales = Integer.parseInt(parts[0]);
-					LocalDate date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("MMM-yy"));
+					YearMonth sales = YearMonth.parse(parts[1]);
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
 					allSalesData.add(new SalesData( date, sales));
 				}
 		}
