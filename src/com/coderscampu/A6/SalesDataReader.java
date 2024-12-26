@@ -17,13 +17,13 @@ public class SalesDataReader {
 		reader.readLine();
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
-			if (parts.length == 3) {
+			if (parts.length == 2) {
 				String model = parts[0];
 				int sales = Integer.parseInt(parts[1]);
 				
 				
-					salesDataList.add(new SalesData(model, sales, date));
-					
+					salesDataList.add(new SalesData(date, sales));
+				
 			}
 		}
 			reader.close();

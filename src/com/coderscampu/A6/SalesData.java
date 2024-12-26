@@ -8,11 +8,11 @@ public class SalesData {
 	private LocalDate date;
 	private String worstMonth;
 
-	public SalesData(String model, int sales, LocalDate date2) {
-		this.model = model;
+	public SalesData(LocalDate date, int sales) {
+		this.date = date;
 		this.sales = sales;
-		this.date = date2;
 	}
+
 
 	public String getModel() {
 		return model;

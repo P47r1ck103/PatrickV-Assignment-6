@@ -26,19 +26,19 @@ public class SalesReportApplication {
 			
 			reader.readLine();
 
-			while ((line = reader.readLine()) != null) {
+ 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
-				if (parts.length == 3) {
-					String model = parts[0];
-					int sales = Integer.parseInt(parts[1]);
-					LocalDate date = LocalDate.parse(parts[2], DateTimeFormatter.ofPattern("YearMonth"));
-					allSalesData.add(new SalesData(model, sales, date));
+				if (parts.length == 2) {
+					int sales = Integer.parseInt(parts[0]);
+					LocalDate date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("YearMonth"));
+					allSalesData.add(new SalesData( date, sales));
 				}
-			}
+		}
 			reader.close();
 		}
 		Map<String, List<SalesData>> groupedByModel = allSalesData.stream()
 				.collect(Collectors.groupingBy(SalesData::getModel));
+				
 
 		for (String model : groupedByModel.keySet()) {
 			List<SalesData> modelData = groupedByModel.get(model);
