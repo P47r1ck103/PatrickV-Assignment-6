@@ -40,24 +40,24 @@ public class SalesReportApplication {
 				.collect(Collectors.toList());
 				
 
-		for (String model : groupedBySales.keySet()) {
-			List<SalesData> modelData = groupedBySales.get();
-			Map<Object, Integer> yearlySales = modelData.stream().collect(Collectors
+		for (SalesData object : groupedBySales) {
+			List<SalesData> salesData = groupedBySales;
+			Map<Object, Integer> yearlySales = salesData.stream().collect(Collectors
 					.groupingBy(data -> data.getDate().getYear(), Collectors.summingInt(SalesData::getSales)));
-			System.out.println(model + "Yearly Sales Report");
+			System.out.println(object);
 			for (int year = 2016; year <= 2019; year++) {
 				int sales = yearlySales.getOrDefault(year, 0);
 				System.out.println(year + " ->" + sales);
 			}
-			Map<Object, Integer> monthlySales = modelData.stream().collect(Collectors.groupingBy(
+			Map<Object, Integer> monthlySales = salesData.stream().collect(Collectors.groupingBy(
 					data -> data.getDate().getYear() + "-" + String.format("%02d", data.getDate().getMonthValue()),
 					Collectors.summingInt(SalesData::getSales)));
 
 			Object bestMonth = monthlySales.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
 
-			System.out.println("The best month for " + model + " was: " + bestMonth);
+			System.out.println("The best month was: " + bestMonth);
 			
-			System.out.println("The worst month for " + model + " was: " + worstMonth);
+			System.out.println("The worst month was: " + worstMonth);
 
 		}
 	}
