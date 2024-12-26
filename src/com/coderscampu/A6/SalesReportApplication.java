@@ -30,7 +30,7 @@ public class SalesReportApplication {
 				String[] parts = line.split(",");
 				if (parts.length == 2) {
 					int sales = Integer.parseInt(parts[0]);
-					LocalDate date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("YearMonth"));
+					LocalDate date = LocalDate.parse(parts[1], DateTimeFormatter.ofPattern("MMM-yy"));
 					allSalesData.add(new SalesData( date, sales));
 				}
 		}

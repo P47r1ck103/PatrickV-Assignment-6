@@ -18,7 +18,6 @@ public class SalesDataReader {
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
 			if (parts.length == 2) {
-				String model = parts[0];
 				int sales = Integer.parseInt(parts[1]);
 				
 				
@@ -28,6 +27,7 @@ public class SalesDataReader {
 		}
 			reader.close();
 			return salesDataList;
+
 	}
 
 }
