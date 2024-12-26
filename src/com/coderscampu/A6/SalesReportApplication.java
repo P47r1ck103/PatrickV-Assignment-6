@@ -26,7 +26,7 @@ public class SalesReportApplication {
 			
 			reader.readLine();
 
- 			while ((line = reader.readLine()) != null) {
+			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
 				if (parts.length == 2) {
 					int sales = Integer.parseInt(parts[0]);
@@ -36,12 +36,12 @@ public class SalesReportApplication {
 		}
 			reader.close();
 		}
-		Map<String, List<SalesData>> groupedByModel = allSalesData.stream()
-				.collect(Collectors.groupingBy(SalesData::getModel));
+		List<SalesData> groupedBySales = allSalesData.stream()
+				.collect(Collectors.toList());
 				
 
-		for (String model : groupedByModel.keySet()) {
-			List<SalesData> modelData = groupedByModel.get(model);
+		for (String model : groupedBySales.keySet()) {
+			List<SalesData> modelData = groupedBySales.get();
 			Map<Object, Integer> yearlySales = modelData.stream().collect(Collectors
 					.groupingBy(data -> data.getDate().getYear(), Collectors.summingInt(SalesData::getSales)));
 			System.out.println(model + "Yearly Sales Report");

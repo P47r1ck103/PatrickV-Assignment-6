@@ -3,21 +3,21 @@ package com.coderscampu.A6;
 import java.time.LocalDate;
 
 public class SalesData {
-	private String model;
 	private int sales;
 	private LocalDate date;
 	private String worstMonth;
+	private String bestMonth;
 
+	public String getBestMonth() {
+		return bestMonth;
+	}
+	public void setBestMonth(String bestMonth) {
+		this.bestMonth = bestMonth;
+	}
 	public SalesData(LocalDate date, int sales) {
 		this.date = date;
 		this.sales = sales;
 	}
-
-
-	public String getModel() {
-		return model;
-	}
-
 	public int getSales() {
 		return sales;
 	}
