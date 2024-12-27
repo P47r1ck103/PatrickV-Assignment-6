@@ -1,6 +1,7 @@
-package com.coderscampu.A6;
+package com.coderscampus.A6;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,25 +16,37 @@ public class SalesReportApplication {
 	
 	
 	private static String worstMonth;
-	private static LocalDate date;
+	
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException{
 		String[] filePaths = { "model3.csv", "modelS.csv", "modelX.csv" };
-
 		List<SalesData> allSalesData = new ArrayList<>();
 
 		for (String filePath : filePaths) {
-			BufferedReader reader = new BufferedReader(new FileReader(filePath));
-			String line;
+			try {
+				SalesDataReader reader = new SalesDataReader();
+				allSalesData.addAll(reader.readData(filePath));
+			} catch (IOException e) {
+				System.out.println("Error reading file: " + filePath + "-" + e.getMessage());
+			}
+			BufferedReader reader = null;
+			try {
+				reader = new BufferedReader(new FileReader(filePath));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			String line;
 			
 			reader.readLine();
 
+			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
 				if (parts.length == 2) {
-					YearMonth sales = YearMonth.parse(parts[1]);
+					YearMonth sales = YearMonth.parse(parts[0]);
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
-					allSalesData.add(new SalesData( date, sales));
+					allSalesData.add(new SalesData(sales, 0));
 				}
 		}
 			reader.close();

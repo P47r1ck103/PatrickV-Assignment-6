@@ -1,11 +1,11 @@
-package com.coderscampu.A6;
+package com.coderscampus.A6;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 
 public class SalesData {
 	private int sales;
-	private YearMonth yearMonth;
+	private YearMonth YearMonth;
 	private String worstMonth;
 	private String bestMonth;
 	private LocalDate date;
@@ -13,16 +13,16 @@ public class SalesData {
 	public String getBestMonth() {
 		return bestMonth;
 	}
+
 	public void setBestMonth(String bestMonth) {
 		this.bestMonth = bestMonth;
 	}
-	public SalesData(LocalDate date, int sales) {
-		this.date = date;
+
+	public SalesData(YearMonth yearMonth, int sales) {
+		this.YearMonth = yearMonth;
 		this.sales = sales;
 	}
-	public SalesData(LocalDate date2, YearMonth sales2) {
-		// TODO Auto-generated constructor stub
-	}
+
 	public int getSales() {
 		return sales;
 	}
@@ -33,6 +33,11 @@ public class SalesData {
 
 	public String getWorstMonth() {
 		return worstMonth;
+	}
+
+	@Override
+	public String toString() {
+		return "SalesData [yearMonth=" + YearMonth + "]";
 	}
 
 	public void setWorstMonth(String worstMonth) {
