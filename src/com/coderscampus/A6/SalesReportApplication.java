@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -43,9 +42,10 @@ public class SalesReportApplication {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
+				
 				if (parts.length == 2) {
-					YearMonth sales = YearMonth.parse(parts[0]);
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
+					YearMonth sales = YearMonth.parse(parts[0], formatter);
 					allSalesData.add(new SalesData(sales, 0));
 				}
 		}
