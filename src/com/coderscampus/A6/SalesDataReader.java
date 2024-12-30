@@ -23,6 +23,7 @@ public class SalesDataReader {
 			String[] parts = line.split(",");
 			if (parts.length == 2) {
 				int sales = Integer.parseInt(parts[1]);
+				YearMonth yearMonth = java.time.YearMonth.parse(parts[0]);
 				salesDataList.add(new SalesData(YearMonth, sales));}
 			
 //				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
