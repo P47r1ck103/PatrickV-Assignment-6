@@ -15,10 +15,9 @@ import java.util.stream.Stream;
 
 public class SalesReportApplication {
 
-	private static String worstMonth;
 	private static Collection<SalesData> filteredSalesData;
 
-
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args, Supplier Collectors) throws IOException {
 		String[] filePaths = { "model3.csv", "modelS.csv", "modelX.csv" };
 		List<SalesData> allSalesData = new ArrayList<>();
@@ -34,7 +33,7 @@ public class SalesReportApplication {
 			try {
 				reader = new BufferedReader(new FileReader(filePath));
 			} catch (FileNotFoundException e) {
-			
+
 				e.printStackTrace();
 			}
 //			String line;
@@ -46,8 +45,7 @@ public class SalesReportApplication {
 				String[] parts = line.split(",");
 
 				if (parts.length == 2) {
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
-					YearMonth sales = YearMonth.parse(parts[0], formatter);
+
 					allSalesData.add(new SalesData(sales, 0));
 				}
 			}
@@ -55,11 +53,10 @@ public class SalesReportApplication {
 		}
 		List<SalesData> groupedBySales;
 		try {
-			groupedBySales = allSalesData.stream()
-					.filter(data-> data.getYearMonth()!= null)
-					.collect(Collectors.toString().toString().collectors.summingInt(SalesData::getSales));
+			groupedBySales = allSalesData.stream().filter(data -> data.getYearMonth() != null)
+					.collect(Collectors(SalesData::getSales));// not right.
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -68,13 +65,13 @@ public class SalesReportApplication {
 			Stream<SalesData> yearlySales = salesData.stream();
 			for (int year = 2016; year <= 2019; year++) {
 				@SuppressWarnings("unchecked")
-				int sales = ((Map<Integer,Integer>) yearlySales).getOrDefault(year, 0);
+				int sales = ((Map<Integer, Integer>) yearlySales).getOrDefault(year, 0);
 				System.out.println(year + " ->" + sales);
 			}
-			Map<Integer, Integer> MonthlySales = filteredSalesData.stream()
-					.collect(Collectors,(data -> data.getYearMonth().toString()
+			Map<Integer, Integer> MonthlySales = filteredSalesData.stream().collect(Collectors,
+					(data -> data.getYearMonth().toString()// somethings not right here
 							.Collectors.summingInt(SalesData::getSales)));
-			
+
 			System.out.println("The best month was: ");
 
 			System.out.println("The worst month was: ");
@@ -82,5 +79,3 @@ public class SalesReportApplication {
 		}
 	}
 }
-
-
