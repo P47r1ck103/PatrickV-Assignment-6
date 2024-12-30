@@ -25,8 +25,8 @@ public class SalesDataReader {
 				int sales = Integer.parseInt(parts[1]);
 				salesDataList.add(new SalesData(YearMonth, sales));}
 			
-				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
-						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
+//				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
+//						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
 		}
 		
 		reader.close();

@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SalesReportApplication {
@@ -20,7 +19,7 @@ public class SalesReportApplication {
 	private static Collection<SalesData> filteredSalesData;
 
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args, Supplier Collectors) throws IOException {
 		String[] filePaths = { "model3.csv", "modelS.csv", "modelX.csv" };
 		List<SalesData> allSalesData = new ArrayList<>();
 
@@ -54,27 +53,34 @@ public class SalesReportApplication {
 			}
 			reader.close();
 		}
-		List<SalesData> groupedBySales = allSalesData.stream()
-				.filter(data-> data.getYearMonth()!= null)
-				.collect(Collectors.toString().getYearMonth().toString().collectors.summingInt(SalesData::getSales)));
+		List<SalesData> groupedBySales;
+		try {
+			groupedBySales = allSalesData.stream()
+					.filter(data-> data.getYearMonth()!= null)
+					.collect(Collectors.toString().toString().collectors.summingInt(SalesData::getSales));
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 
 		for (SalesData object : groupedBySales) {
 			List<SalesData> salesData = groupedBySales;
 			Stream<SalesData> yearlySales = salesData.stream();
 			for (int year = 2016; year <= 2019; year++) {
-				int sales = ((Map<Integer>) yearlySales).getOrDefault(year, 0);
+				@SuppressWarnings("unchecked")
+				int sales = ((Map<Integer,Integer>) yearlySales).getOrDefault(year, 0);
 				System.out.println(year + " ->" + sales);
 			}
-			Map<Integer> MonthlySales = filteredSalesData.stream()
-					.collect(Collectors,groupingBy(data -> data.getYearMonth().toString()
+			Map<Integer, Integer> MonthlySales = filteredSalesData.stream()
+					.collect(Collectors,(data -> data.getYearMonth().toString()
 							.Collectors.summingInt(SalesData::getSales)));
-			Object bestMonth = MonthlySales.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+			
+			System.out.println("The best month was: ");
 
-			System.out.println("The best month was: " + bestMonth);
-
-			System.out.println("The worst month was: " + worstMonth);
+			System.out.println("The worst month was: ");
 
 		}
 	}
-
 }
+
+
