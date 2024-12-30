@@ -43,4 +43,10 @@ public class SalesData {
 	public void setWorstMonth(String worstMonth) {
 		this.worstMonth = worstMonth;
 	}
+
+	public Object getYearMonth() {
+		
+		return YearMonth;
+	}
+
 }

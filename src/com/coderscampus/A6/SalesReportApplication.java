@@ -7,17 +7,20 @@ import java.io.IOException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SalesReportApplication {
-	
-	
-	private static String worstMonth;
-	
 
-	public static void main(String[] args) throws IOException{
+	private static String worstMonth;
+	private static Collection<SalesData> filteredSalesData;
+	private static Supplier Collectors;
+
+	public static void main(String[] args) throws IOException {
 		String[] filePaths = { "model3.csv", "modelS.csv", "modelX.csv" };
 		List<SalesData> allSalesData = new ArrayList<>();
 
@@ -36,42 +39,38 @@ public class SalesReportApplication {
 				e.printStackTrace();
 			}
 //			String line;
-			
+
 			reader.readLine();
 
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(",");
-				
+
 				if (parts.length == 2) {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
 					YearMonth sales = YearMonth.parse(parts[0], formatter);
 					allSalesData.add(new SalesData(sales, 0));
 				}
-		}
+			}
 			reader.close();
 		}
 		List<SalesData> groupedBySales = allSalesData.stream()
-				.collect(Collectors.toList());
-				
+				.filter(data-> data.getYearMonth()!= null)
 
 		for (SalesData object : groupedBySales) {
 			List<SalesData> salesData = groupedBySales;
-			Map<Object, Integer> yearlySales = salesData.stream().collect(Collectors
-					.groupingBy(data -> data.getDate().getYear(), Collectors.summingInt(SalesData::getSales)));
-			System.out.println(object);
+			Stream<SalesData> yearlySales = salesData.stream();
 			for (int year = 2016; year <= 2019; year++) {
-				int sales = yearlySales.getOrDefault(year, 0);
+				int sales = ((Map<com.coderscampus.A6.object, Integer>) yearlySales).getOrDefault(year, 0);
 				System.out.println(year + " ->" + sales);
 			}
-			Map<Object, Integer> monthlySales = salesData.stream().collect(Collectors.groupingBy(
-					data -> data.getDate().getYear() + "-" + String.format("%02d", data.getDate().getMonthValue()),
-					Collectors.summingInt(SalesData::getSales)));
-
-			Object bestMonth = monthlySales.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+			Map<object, Integer> MonthlySales = filteredSalesData.stream()
+					.collect(Collectors,groupingBy(data -> data.getYearMonth().toString()
+							.Collectors.summingInt(SalesData::getSales)));
+			Object bestMonth = MonthlySales.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
 
 			System.out.println("The best month was: " + bestMonth);
-			
+
 			System.out.println("The worst month was: " + worstMonth);
 
 		}
