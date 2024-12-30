@@ -9,7 +9,8 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class SalesReportApplication {
-
+	
+	private static String bestMonth;
 	private static String worstMonth;
 	private static Collection<SalesData> filteredSalesData;
 	@SuppressWarnings("rawtypes")
@@ -26,10 +27,14 @@ public class SalesReportApplication {
 			} catch (IOException e) {
 				System.out.println("Error reading file: " + filePath + "-" + e.getMessage());
 			}
-		
+		}
 		List<SalesData> groupedBySales = allSalesData.stream()
 				.filter(data-> data.getYearMonth()!= null)
 				.collect(java.util.stream.Collectors.toList());
+		
+		Map<Integer, Integer> yearlySales = filteredSalesData.stream()
+				.collect(Collectors.groupingBy(Data -> data.getYearMonth().getYear(),
+						Collectors.summingInt(SalesData::getSales)));
 
 		for (SalesData object : groupedBySales) {
 			List<SalesData> salesData = groupedBySales;
@@ -51,4 +56,4 @@ public class SalesReportApplication {
 	}
 	}
 
-	}
+	

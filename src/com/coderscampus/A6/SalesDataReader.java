@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SalesDataReader {
 
@@ -15,7 +16,6 @@ public class SalesDataReader {
 		List<SalesData> salesDataList = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(filePath));
 		String line;
-
 		reader.readLine();
 		while ((line = reader.readLine()) != null) {
 			String[] parts = line.split(",");
@@ -24,6 +24,9 @@ public class SalesDataReader {
 
 				salesDataList.add(new SalesData(YearMonth, sales));
 
+				Map<object, Integer> MonthlySales = filteredSalesData.stream()
+						.collect(Collectors, groupingBy(
+								data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
 			}
 		}
 		reader.close();
