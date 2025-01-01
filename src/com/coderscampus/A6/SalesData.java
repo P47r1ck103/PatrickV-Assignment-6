@@ -4,7 +4,7 @@ import java.time.YearMonth;
 
 public class SalesData {
 	private int sales;
-	private YearMonth YearMonth;
+	private static YearMonth YearMonth;
 
 	public SalesData(YearMonth yearMonth, int sales) {
 		this.YearMonth = yearMonth;

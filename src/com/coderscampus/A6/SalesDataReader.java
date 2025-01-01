@@ -25,11 +25,11 @@ public class SalesDataReader {
 
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
 				YearMonth sales = YearMonth.parse(parts[0], formatter);
-				salesDataList.add(new SalesData(sales, YearMonth));
+				salesDataList.add(new SalesData(sales, 0));
 			}
 
-//				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
-//						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
+				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
+						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
 		}
 
 		reader.close();
