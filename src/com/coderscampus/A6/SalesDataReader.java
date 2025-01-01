@@ -24,12 +24,13 @@ public class SalesDataReader {
 			if (parts.length == 2) {
 
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
-				YearMonth sales = YearMonth.parse(parts[0], formatter);
-				salesDataList.add(new SalesData(sales, 0));
+				int sales = Integer.parseInt("sales");
+				YearMonth yearMonth = YearMonth.parse(parts[0], formatter);
+				salesDataList.add(new SalesData(yearMonth, 0));
 			}
 
-				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
-						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
+//				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
+//						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
 		}
 
 		reader.close();
