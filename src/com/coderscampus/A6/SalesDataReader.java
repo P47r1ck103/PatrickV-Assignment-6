@@ -32,7 +32,7 @@ public class SalesDataReader {
 //				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
 //						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
 		}
-
+		System.out.println(salesDataList);
 		reader.close();
 		return salesDataList;
 
