@@ -2,7 +2,6 @@ package com.coderscampus.A6;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,16 +10,8 @@ import java.util.stream.Collectors;
 public class SalesReportApplication {
 
 	
-	private static Collection<SalesData> filteredSalesData;
-
-
-	
-	public static void main(String[] args) {
-		String[] filePaths = { 
-				"model3.csv",
-				"modelS.csv",
-				"modelX.csv" 
-				};
+	public static void main(String[] args)throws IOException {
+		String[] filePaths = { "model3.csv","modelS.csv","modelX.csv" };
 		List<SalesData> allSalesData = new ArrayList<>();
 
 		for (String filePath : filePaths) {
@@ -29,7 +20,7 @@ public class SalesReportApplication {
 				allSalesData.addAll(reader.readData(filePath));
 			} catch (IOException e) {
 				System.out.println("Error reading file: " + filePath + "-" + e.getMessage());
-
+			}
 
 		}
 		List<SalesData> filteredSalesData = allSalesData.stream()
@@ -55,7 +46,7 @@ public class SalesReportApplication {
 			
 			
 
-			}
-		}
+			
 	}
+}
 

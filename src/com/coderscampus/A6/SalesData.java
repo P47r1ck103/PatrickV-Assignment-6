@@ -4,10 +4,10 @@ import java.time.YearMonth;
 
 public class SalesData {
 	private int sales;
-	private YearMonth YearMonth;
+	private YearMonth yearMonth;
 
 	public SalesData(YearMonth yearMonth, int sales) {
-		this.YearMonth = yearMonth;
+		this.yearMonth = yearMonth;
 		this.sales = sales;
 	}
 
@@ -17,11 +17,11 @@ public class SalesData {
 
 	@Override
 	public String toString() {
-		return "SalesData [yearMonth=" + YearMonth + "]";
+		return "SalesData [yearMonth=" + yearMonth + ", sales="+"]";
 	}
 
 	public YearMonth getYearMonth() {
-		return YearMonth;
+		return yearMonth;
 	}
 
 }

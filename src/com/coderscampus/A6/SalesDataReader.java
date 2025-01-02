@@ -1,6 +1,7 @@
 package com.coderscampus.A6;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.YearMonth;
@@ -10,29 +11,40 @@ import java.util.List;
 
 public class SalesDataReader {
 
+	@SuppressWarnings("resource")
 	public List<SalesData> readData(String filePath) throws IOException {
 		List<SalesData> salesDataList = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(filePath));
 		String line;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
+		File file = new File(filePath);
+		
+		if (!file.exists()) {
+            System.out.println("File not found: " + filePath);
+            return salesDataList;
+        }
+		
 		reader.readLine();
+		
 		while ((line = reader.readLine()) != null) {
 			String[] parts = line.split(",");
 			if (parts.length == 2) {
-
-				Integer.parseInt(parts[1]);
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
-				YearMonth yearMonth = java.time.YearMonth.parse(parts[0], formatter);
-				salesDataList.add(new SalesData(yearMonth, 0));
+				try {
+					YearMonth yearMonth = YearMonth.parse(parts[0].trim(), formatter);
+					int sales = Integer.parseInt(parts[1].trim());
+					salesDataList.add(new SalesData(yearMonth, sales));
+				
+			} catch (Exception e) {
+				System.out.println("Error parsing line: " + line + "-" + e.getMessage());
 			}
 
-//				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
-//						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
-//		}
+				
+		}
 		System.out.println(salesDataList);
 		reader.close();
 
+		
 		}
 		return salesDataList;
-		
 	}	
 }
