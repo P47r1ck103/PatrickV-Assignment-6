@@ -1,16 +1,10 @@
 package com.coderscampus.A6;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class SalesReportApplication {
 
@@ -36,15 +30,20 @@ public class SalesReportApplication {
 
 //			reader.close();
 		}
-		List<SalesData> groupedBySales;
-		try {
+		List<SalesData> filteredSalesData = allSalesData.stream()
+				.filter(data -> data.getYearMonth()!= null)
+				.collect(Collectors.toList());
+//		Map<Integer,Integer> yearlySales = filteredSalesData.stream()
+//				.collect(Collectors.groupingBy(data -> data.getYearMonth().getYear(),
+//						Collectors.summingInt(SalesData:: getSales)));
+		
 //			groupedBySales = allSalesData.stream()
 //					.filter(data-> data.getYearMonth()!= null)
 //					.collect(Collectors(SalesData::getSales));// not right.
-		} catch (Exception e) {
+		
 			
-			e.printStackTrace();
-		}
+		
+		
 
 //		for (SalesData object : groupedBySales) {
 //			List<SalesData> salesData = groupedBySales;
@@ -65,5 +64,4 @@ public class SalesReportApplication {
 			}
 		}
 	}
-}
 
