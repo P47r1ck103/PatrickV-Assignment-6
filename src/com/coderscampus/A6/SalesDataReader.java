@@ -6,13 +6,9 @@ import java.io.IOException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public class SalesDataReader {
-
-	private YearMonth YearMonth;
 
 	public List<SalesData> readData(String filePath) throws IOException {
 		List<SalesData> salesDataList = new ArrayList<>();
@@ -23,9 +19,9 @@ public class SalesDataReader {
 			String[] parts = line.split(",");
 			if (parts.length == 2) {
 
-				int sales = Integer.parseInt(parts[1]);
+				Integer.parseInt(parts[1]);
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
-				YearMonth yearMonth = YearMonth.parse(parts[0], formatter);
+				YearMonth yearMonth = java.time.YearMonth.parse(parts[0], formatter);
 				salesDataList.add(new SalesData(yearMonth, 0));
 			}
 
@@ -34,8 +30,9 @@ public class SalesDataReader {
 //		}
 		System.out.println(salesDataList);
 		reader.close();
+
+		}
 		return salesDataList;
-
-	}
-
+		
+	}	
 }

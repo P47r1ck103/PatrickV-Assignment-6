@@ -18,9 +18,13 @@ public class SalesReportApplication {
 	private static Collection<SalesData> filteredSalesData;
 
 
-	@SuppressWarnings("rawtypes")
-	public static void main(String[] args) throws IOException {
-		String[] filePaths = { "model3.csv", "modelS.csv", "modelX.csv" };
+	
+	public static void main(String[] args) {
+		String[] filePaths = { 
+				"model3.csv",
+				"modelS.csv",
+				"modelX.csv" 
+				};
 		List<SalesData> allSalesData = new ArrayList<>();
 
 		for (String filePath : filePaths) {
