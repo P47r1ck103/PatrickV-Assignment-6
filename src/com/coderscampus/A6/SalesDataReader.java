@@ -23,15 +23,15 @@ public class SalesDataReader {
 			String[] parts = line.split(",");
 			if (parts.length == 2) {
 
+				int sales = Integer.parseInt(parts[1]);
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-yy");
-				int sales = Integer.parseInt("sales");
 				YearMonth yearMonth = YearMonth.parse(parts[0], formatter);
 				salesDataList.add(new SalesData(yearMonth, 0));
 			}
 
 //				Map<java.time.YearMonth, Integer> MonthlySales = filteredSalesData.stream()
 //						.collect(Collectors(data -> data.getYearMonth().toString().Collectors.summingInt(SalesData::getSales)));
-		}
+//		}
 		System.out.println(salesDataList);
 		reader.close();
 		return salesDataList;
