@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SalesReportApplication {
@@ -28,38 +30,30 @@ public class SalesReportApplication {
 			} catch (IOException e) {
 				System.out.println("Error reading file: " + filePath + "-" + e.getMessage());
 
-//			reader.close();
+
 		}
 		List<SalesData> filteredSalesData = allSalesData.stream()
 				.filter(data -> data.getYearMonth()!= null)
 				.collect(Collectors.toList());
-//		Map<Integer,Integer> yearlySales = filteredSalesData.stream()
-//				.collect(Collectors.groupingBy(data -> data.getYearMonth().getYear(),
-//						Collectors.summingInt(SalesData:: getSales)));
+		Map<Integer,Integer> yearlySales = filteredSalesData.stream()
+				.collect(Collectors.groupingBy(data -> data.getYearMonth().getYear(),
+						Collectors.summingInt(SalesData:: getSales)));
 		
-//			groupedBySales = allSalesData.stream()
-//					.filter(data-> data.getYearMonth()!= null)
-//					.collect(Collectors(SalesData::getSales));// not right.
+		yearlySales.forEach((year, sales) -> System.out.println(year + "->" + sales));
 		
+		Map<String, Integer> monthlySales = filteredSalesData.stream()
+				.collect(Collectors.groupingBy(data -> data.getYearMonth().toString(),
+						Collectors.summingInt(SalesData::getSales)));
+		Optional<Map.Entry<String, Integer>> bestMonthEntry = monthlySales.entrySet().stream()
+				.max(Map.Entry.comparingByValue());
+		Optional<Map.Entry<String, Integer>> worstMonthEntry = monthlySales.entrySet().stream()
+				.min(Map.Entry.comparingByValue());
 			
 		
-		
-
-//		for (SalesData object : groupedBySales) {
-//			List<SalesData> salesData = groupedBySales;
-//			Stream<SalesData> yearlySales = salesData.stream();
-			for (int year = 2016; year <= 2019; year++) {
-//				@SuppressWarnings("unchecked")
-//				int sales = ((Map<Integer,Integer>) yearlySales).getOrDefault(year, 0);
-//				System.out.println(year + " ->" + sales);
-			}
-//			Map<Integer, Integer> MonthlySales = filteredSalesData.stream()
-//					.collect(Collectors(data -> data.getYearMonth().toString( )//somethings not right here
-//							.Collectors.summingInt(SalesData::getSales)));
+		bestMonthEntry.ifPresent(entry -> System.out.println("The best month was: " + entry.getKey() + " with sales: " + entry.getValue()));
+		worstMonthEntry.ifPresent(entry -> System.out.println("The worst month was: " + entry.getKey() + " with sales: " + entry.getValue()));
 			
-			System.out.println("The best month was: ");
-
-			System.out.println("The worst month was: ");
+			
 
 			}
 		}
