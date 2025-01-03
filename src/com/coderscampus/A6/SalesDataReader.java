@@ -41,10 +41,10 @@ public class SalesDataReader {
 				
 		}
 		System.out.println(salesDataList);
-		reader.close();
 
 		
 		}
+		reader.close();
 		return salesDataList;
 	}	
 }
