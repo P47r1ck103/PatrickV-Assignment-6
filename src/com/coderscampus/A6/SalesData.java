@@ -17,7 +17,7 @@ public class SalesData {
 
 	@Override
 	public String toString() {
-		return "SalesData [yearMonth = " + yearMonth + ", sales = "+"]";
+		return "yearMonth = " + yearMonth + ", sales = " + sales;
 	}
 
 	public YearMonth getYearMonth() {
