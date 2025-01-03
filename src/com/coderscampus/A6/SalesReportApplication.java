@@ -39,7 +39,6 @@ public class SalesReportApplication {
 				.max(Map.Entry.comparingByValue());
 		Optional<Map.Entry<String, Integer>> worstMonthEntry = monthlySales.entrySet().stream()
 				.min(Map.Entry.comparingByValue());
-			
 		
 		bestMonthEntry.ifPresent(entry -> System.out.println("The best month was: " + entry.getKey() + " with sales: " + entry.getValue()));
 		worstMonthEntry.ifPresent(entry -> System.out.println("The worst month was: " + entry.getKey() + " with sales: " + entry.getValue()));

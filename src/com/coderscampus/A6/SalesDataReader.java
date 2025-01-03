@@ -40,7 +40,9 @@ public class SalesDataReader {
 
 				
 		}
-		System.out.println(salesDataList);
+//			System.out.println(parts[0]);
+//			System.out.println(parts[1]);
+
 
 		
 		}
