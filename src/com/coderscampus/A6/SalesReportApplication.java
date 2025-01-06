@@ -1,5 +1,6 @@
 package com.coderscampus.A6;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,21 +21,32 @@ public class SalesReportApplication {
 				allSalesData.addAll(reader.readData(filePath));
 			} catch (IOException e) {
 				System.out.println("Error reading file: " + filePath + "-" + e.getMessage());
+				continue;
 			}
 
 		}
 		List<SalesData> filteredSalesData = allSalesData.stream()
 				.filter(data -> data.getYearMonth()!= null)
 				.collect(Collectors.toList());
+		
 		Map<Integer,Integer> yearlySales = filteredSalesData.stream()
 				.collect(Collectors.groupingBy(data -> data.getYearMonth().getYear(),
 						Collectors.summingInt(SalesData:: getSales)));
 		
-		yearlySales.forEach((year, sales) -> System.out.println(year + "->" + sales));
+		
+		
+		String modelName = filePaths.replace(".csv");
+		System.out.println(modelName + "Yearly Sales Report");
+		System.out.println("-------------------");
+		for (int year = 2016; year <= 2019; year++) {
+			int sales = yearlySales.getOrDefault(year, 0);
+			System.out.println(year + "->" + sales);
+		}
 		
 		Map<String, Integer> monthlySales = filteredSalesData.stream()
 				.collect(Collectors.groupingBy(data -> data.getYearMonth().toString(),
 						Collectors.summingInt(SalesData::getSales)));
+		
 		Optional<Map.Entry<String, Integer>> bestMonthEntry = monthlySales.entrySet().stream()
 				.max(Map.Entry.comparingByValue());
 		Optional<Map.Entry<String, Integer>> worstMonthEntry = monthlySales.entrySet().stream()
