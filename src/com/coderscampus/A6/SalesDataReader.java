@@ -20,8 +20,7 @@ public class SalesDataReader {
 		File file = new File(filePath);
 		
 		if (!file.exists()) {
-            System.out.println("File not found: " + filePath);
-            return salesDataList;
+            System.out.println("File not found: " + filePa
         }
 		
 		reader.readLine();
@@ -40,8 +39,7 @@ public class SalesDataReader {
 
 				
 		}
-//			System.out.println(parts[0]);
-//			System.out.println(parts[1]);
+
 
 
 		
