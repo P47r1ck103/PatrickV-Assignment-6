@@ -15,7 +15,6 @@ public class SalesReportApplication {
 
 		for (String filePath : filePaths) {
 			
-		
 			try {
 				SalesDataReader reader = new SalesDataReader();
 				allSalesData.addAll(reader.readData(filePath));
@@ -30,8 +29,7 @@ public class SalesReportApplication {
 		Map<Integer, Integer> yearlySales = filteredSalesData.stream().collect(Collectors
 				.groupingBy(data -> data.getYearMonth().getYear(), Collectors.summingInt(SalesData::getSales)));
 
-//		System.out.println(modelName + "Yearly Sales Report");
-//		System.out.println("-------------------");
+		System.out.println("Yearly Sales Report");
 		for (int year = 2016; year <= 2019; year++) {
 			int sales = yearlySales.getOrDefault(year, 0);
 			System.out.println(year + "->" + sales);
@@ -45,17 +43,16 @@ public class SalesReportApplication {
 		Optional<Map.Entry<String, Integer>> worstMonthEntry = monthlySales.entrySet().stream()
 				.min(Map.Entry.comparingByValue());
 
+		
 		bestMonthEntry.ifPresent(entry -> System.out
-				.println("The best month was: " + entry.getKey() + " with sales: " + entry.getValue()));
+				.println("The best month for: " + filePath + " was: " + bestMonthEntry));
 
+		
 		worstMonthEntry.ifPresent(entry -> System.out
-				.println("The worst month was: " + entry.getKey() + " with sales: " + entry.getValue()));
+				.println("The worst month for " + filePath + " was: " + worstMonthEntry));
+		System.out.println("-------------------");
 
-//	private static record getModelName(String filePath) {
-//		
-//	        for (int i = 0; i < filePath.length(); i++); 
 
-//	}
+		}		
 	}
-}
 }

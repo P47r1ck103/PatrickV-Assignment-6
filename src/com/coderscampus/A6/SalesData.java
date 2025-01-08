@@ -5,6 +5,22 @@ import java.time.YearMonth;
 public class SalesData {
 	private int sales;
 	private YearMonth yearMonth;
+	private String modelName;
+
+	public String getModelName() {
+		
+		return modelName;
+	}
+
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
+
+	
+
+
 
 	public SalesData(YearMonth yearMonth, int sales) {
 		this.yearMonth = yearMonth;
