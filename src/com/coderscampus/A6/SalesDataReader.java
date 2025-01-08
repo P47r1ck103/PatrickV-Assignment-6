@@ -11,7 +11,6 @@ import java.util.List;
 
 public class SalesDataReader {
 
-	@SuppressWarnings("resource")
 	public List<SalesData> readData(String filePath) throws IOException {
 		List<SalesData> salesDataList = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(filePath));
