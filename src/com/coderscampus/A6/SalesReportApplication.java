@@ -60,14 +60,14 @@ public class SalesReportApplication {
 			}
 			if (bestMonth != null) {
 				System.out
-						.println("The best month was: " + bestMonth.getKey() + " with sales: " + bestMonth.getValue());
+						.println("The best monthly sales was: " + bestMonth.getValue());
 			} else {
 				System.out.println("No sales data available for the best month.");
 			}
 
 			if (worstMonth != null) {
 				System.out.println(
-						"The worst month was: " + worstMonth.getKey() + " with sales: " + worstMonth.getValue());
+						"The worst monthly sales was: " + worstMonth.getValue());
 
 			} else {
 				System.out.println(" no sales data available for the worst month.");
