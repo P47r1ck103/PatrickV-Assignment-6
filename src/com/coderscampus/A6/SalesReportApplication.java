@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class SalesReportApplication {
@@ -28,25 +28,27 @@ public class SalesReportApplication {
 
 		Map<Integer, Integer> yearlySales = filteredSalesData.stream().collect(Collectors
 				.groupingBy(data -> data.getYearMonth().getYear(), Collectors.summingInt(SalesData::getSales)));
-
-		System.out.println(filePath +" Yearly Sales Report");
+String fileName = filePath;		
+		System.out.println(fileName +" Yearly Sales Report");
 		for (int year = 2016; year <= 2019; year++) {
 			int sales = yearlySales.getOrDefault(year, 0);
 			System.out.println(year + "->" + sales);
-		}
-
+			}
+		
+		
 		Map<String, Integer> monthlySales = filteredSalesData.stream().collect(Collectors
 				.groupingBy(data -> data.getYearMonth().toString(), Collectors.summingInt(SalesData::getSales)));
-
-		Map.Entry<String, Integer> bestMonth = null;
-		for (Map.Entry<String, Integer> entry : monthlySales.entrySet()) {
+		
+		}
+		Entry<String, Integer> bestMonth = null;
+		Entry<String, Integer> worstMonth = null;
+			
+		for (Entry<String, Integer> entry : monthlySales.entrySet()) {
 			if (bestMonth == null || entry.getValue() > bestMonth.getValue()) {
 				bestMonth = entry;
 			}
-		}
-		Map.Entry<String, Integer> worstMonth = null;
-		for (Map.Entry<String, Integer> entry : monthlySales.entrySet()) {
-			if (worstMonth == null || entry.getValue() > worstMonth.getValue()) {
+		
+		if (worstMonth == null || entry.getValue() < worstMonth.getValue()) {
 				worstMonth = entry;
 			}
 		}
@@ -58,12 +60,29 @@ public class SalesReportApplication {
 		
 		if (worstMonth != null) {
 			System.out.println("The worst month was: " + worstMonth.getKey() + " with sales: " + worstMonth.getValue());
+		
 		}else {
 			System.out.println(" no sales data available for the worst month.");
 		}
 		System.out.println("-------------------");
 
 
-		}		
+						
+		}
+	public String getModelName(String filePath){
+		int lastSlashIndex = filePath.lastIndexOf('/'); 
+		if (lastSlashIndex == -1) {
+			 lastSlashIndex = filePath.lastIndexOf('\\');
+		}			
+			String fileName;
+			if (lastSlashIndex != -1) {
+				fileName = filePath.substring(lastSlashIndex + 1);
+			}else {
+				fileName = filePath;
+				if (fileName.endsWith(".csv")) {
+					fileName = fileName.substring(0, fileName.length() - 4);
+		}
 	}
+			return fileName;
+}
 }
