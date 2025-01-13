@@ -14,13 +14,14 @@ public class SalesReportApplication {
 		List<SalesData> allSalesData = new ArrayList<>();
 
 		for (String filePath : filePaths) {
-
+			
 			try {
 				SalesDataReader reader = new SalesDataReader();
-				allSalesData.addAll(reader.readData(filePath));
+				allSalesData = reader.readData(filePath);
 			} catch (IOException e) {
 				System.out.println("Error reading file: " + filePath + "-" + e.getMessage());
 				continue;
+			
 			}
 
 			List<SalesData> filteredSalesData = allSalesData.stream().filter(data -> data.getYearMonth() != null)
