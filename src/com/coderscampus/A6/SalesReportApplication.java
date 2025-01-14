@@ -14,14 +14,14 @@ public class SalesReportApplication {
 		List<SalesData> allSalesData = new ArrayList<>();
 
 		for (String filePath : filePaths) {
-			
+
 			try {
 				SalesDataReader reader = new SalesDataReader();
 				allSalesData = reader.readData(filePath);
 			} catch (IOException e) {
 				System.out.println("Error reading file: " + filePath + "-" + e.getMessage());
 				continue;
-			
+
 			}
 
 			List<SalesData> filteredSalesData = allSalesData.stream().filter(data -> data.getYearMonth() != null)
@@ -32,10 +32,10 @@ public class SalesReportApplication {
 			String fileName = filePath;
 			if (fileName.equals("model3.csv")) {
 				System.out.println("Model 3 Yearly Sales Report");
-				
-			}else if(fileName.equals("modelS.csv")) {
+
+			} else if (fileName.equals("modelS.csv")) {
 				System.out.println("Model S Yearly Sales Report");
-			}else {
+			} else {
 				System.out.println("Model X Yearly Sales Report");
 			}
 			System.out.println("-------------------");
@@ -59,24 +59,44 @@ public class SalesReportApplication {
 					worstMonth = entry;
 				}
 			}
-			if (bestMonth != null) {
-				System.out
-						.println("The best month was: " + bestMonth.getKey() +" with sales: " + bestMonth.getValue());
-			} else {
-				System.out.println("No sales data available for the best month.");
+			if (fileName.equals("model3.csv")) {
+				if (bestMonth != null) {
+					System.out.println("The best month for Model 3  was: " + bestMonth.getKey());
+				} else {
+					System.out.println("No sales data available for the best month.");
+				}
+				if (worstMonth != null) {
+						System.out.println("The worst month for Model 3 was: " + worstMonth.getKey());
+						System.out.println();
+					}
+
+				}
+				if (fileName.equals("modelS.csv")) {
+					if (bestMonth != null) {
+						System.out.println("The best month for Model S was: " + bestMonth.getKey());
+					} else {
+						System.out.println("No sales data available for the best month.");
+					}
+					if (worstMonth != null) {
+						System.out.println("The worst month for Model S was: " + worstMonth.getKey());
+						System.out.println();
+					}
+				}
+				if (fileName.equals("modelX.csv")) {
+						if (bestMonth != null) {
+							System.out.println("The best month for Model X was: " + bestMonth.getKey());
+						} else {
+							System.out.println("No sales data available for the best month.");
+						}
+					if (worstMonth != null) {
+							System.out.println("The worst month for Model X was: " + worstMonth.getKey());
+							System.out.println();
+						} else {
+							System.out.println(" no sales data available for the worst month.");
+						}
+					}
+				}
 			}
-
-			if (worstMonth != null) {
-				System.out.println(
-						"The worst month was: " + worstMonth.getKey() + " with sales: " + worstMonth.getValue() );
-				System.out.println();
-
-			} else {
-				System.out.println(" no sales data available for the worst month.");
-			}
-
 		}
-
-	}
-}
 	
+
